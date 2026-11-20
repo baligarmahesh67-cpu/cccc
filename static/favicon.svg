@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="CropWise">
+  <rect width="64" height="64" rx="14" fill="#e9f3ec"/>
+  <path d="M18 46c0-15 10-26 29-28-1 18-11 28-25 28" fill="#1f6846"/>
+  <path d="M18 48c4-10 11-18 22-24" fill="none" stroke="#f7faf6" stroke-width="3" stroke-linecap="round"/>
+  <path d="M18 48c0 3 1 5 2 6" fill="none" stroke="#1f6846" stroke-width="3" stroke-linecap="round"/>
+</svg>

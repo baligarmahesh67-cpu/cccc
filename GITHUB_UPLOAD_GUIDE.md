@@ -1,24 +1,36 @@
-# Upload this project to GitHub (Windows)
+# Upload / Update the Project on GitHub (Windows)
 
-1. Download and extract `basic_crop_recommendation.zip`.
-2. Open the extracted `basic_crop_recommendation` folder.
-3. Open PowerShell in that folder.
-4. Run the following commands.
+This project is already connected to:
 
-```powershell
-git init
-git branch -M main
-git add .
-git commit -m "Add Basic Crop Recommendation System"
-git remote add origin https://github.com/baligarmahesh67-cpu/cccc.git
-git push -u origin main
+```text
+https://github.com/baligarmahesh67-cpu/cccc.git
 ```
 
-If Git says `remote origin already exists`, run this instead of `git remote add origin`:
+From the project folder:
+
+```powershell
+git status
+git add .
+git diff --cached --check
+git commit -m "Update and verify crop recommendation application"
+git push origin main
+```
+
+If Git says `remote origin already exists` and the URL is wrong:
 
 ```powershell
 git remote set-url origin https://github.com/baligarmahesh67-cpu/cccc.git
-git push -u origin main
+git push origin main
 ```
 
-GitHub may open a browser sign-in flow. Do not paste passwords or personal access tokens into chats.
+Use GitHub CLI authentication for Git operations:
+
+```powershell
+gh auth login --hostname github.com --git-protocol https --web
+gh auth setup-git --hostname github.com
+gh auth status
+gh api user --jq .login
+```
+
+The expected account is `baligarmahesh67-cpu`. Never paste a password or
+personal access token into source code, documentation or a chat message.

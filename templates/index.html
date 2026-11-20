@@ -3,57 +3,133 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Educational crop recommendation using soil, season, rainfall and water availability.">
+  <meta name="description" content="A basic educational crop recommendation system using soil type, season, rainfall and water availability.">
+  <meta name="theme-color" content="#1f6846">
+  <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}" type="image/svg+xml">
   <title>CropWise | Basic Crop Recommendation</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
 </head>
 <body>
-  <header class="topbar"><a class="brand" href="/">🌱 CropWise</a><span>BASIC CROP RECOMMENDATION SYSTEM</span></header>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="CropWise home"><span class="brand-mark" aria-hidden="true">&#127793;</span><span>CropWise</span></a>
+    <span class="top-label">BASIC CROP RECOMMENDATION SYSTEM</span>
+  </header>
+
   <main>
     <section class="hero">
-      <p class="eyebrow">SMARTER CROP PLANNING</p>
-      <h1>Find crops that fit <span>your field.</span></h1>
-      <p>Enter four farm conditions to see a ranked, explainable shortlist of crop options.</p>
+      <div class="hero-copy">
+        <p class="eyebrow">SMARTER CROP PLANNING</p>
+        <h1>Find crops that fit<br><span>your field.</span></h1>
+        <p class="hero-description">Enter four farm conditions to see a rule-based shortlist of crop options and why they matched.</p>
+        <div class="hero-points"><span>&#10003; Simple inputs</span><span>&#10003; Explainable results</span><span>&#10003; Mobile friendly</span></div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="sun"></div>
+        <div class="hill hill-back"></div>
+        <div class="hill hill-front"></div>
+        <div class="plant plant-one">&#127793;</div>
+        <div class="plant plant-two">&#127806;</div>
+      </div>
     </section>
-    <section class="workspace">
-      <form id="recommend-form" class="panel">
-        <p class="eyebrow">STEP 01</p><h2>Tell us about your farm</h2>
-        <label for="soil_type">Soil type</label>
-        <select id="soil_type" name="soil_type" required>
-          <option value="">Select soil type</option><option value="red">Red soil</option><option value="black">Black soil</option>
-          <option value="alluvial">Alluvial soil</option><option value="clay">Clay soil</option><option value="sandy">Sandy soil</option>
-          <option value="loamy">Loamy soil</option><option value="laterite">Laterite soil</option>
-        </select>
-        <label for="season">Growing season</label>
-        <select id="season" name="season" required>
-          <option value="">Select season</option><option value="Kharif">Kharif (monsoon)</option><option value="Rabi">Rabi (winter)</option><option value="Summer">Summer</option>
-        </select>
-        <label for="rainfall_mm">Expected seasonal rainfall (mm)</label>
-        <input id="rainfall_mm" name="rainfall_mm" type="number" min="0" max="5000" step="1" placeholder="e.g. 750" required>
-        <small>Enter estimated rainfall for this crop season, not annual rainfall.</small>
-        <label for="water_availability">Water availability</label>
-        <select id="water_availability" name="water_availability" required>
-          <option value="">Select water availability</option><option value="low">Low (limited irrigation)</option><option value="moderate">Moderate</option><option value="high">High (reliable irrigation)</option>
-        </select>
-        <button id="submit-button" type="submit">Get crop recommendations →</button>
-        <p class="hint">Your entries are processed for this result and are not saved to a database.</p>
-      </form>
-      <section class="panel results" aria-live="polite">
-        <p class="eyebrow">STEP 02</p><h2>Crop recommendations</h2>
-        <p id="status">Complete the four fields and submit to see suggestions.</p>
-        <div id="recommendation-list"></div>
-        <p id="result-notice" class="notice"></p>
-      </section>
+
+    <section class="workspace" aria-label="Crop recommendation form and results">
+      <div class="form-panel">
+        <div class="section-heading">
+          <div><p class="eyebrow">STEP 01</p><h2>Tell us about your farm</h2></div>
+          <span class="required-note">* Required</span>
+        </div>
+        <form id="recommend-form">
+          <label for="soil_type">Soil type <span aria-hidden="true">*</span></label>
+          <select id="soil_type" name="soil_type" required aria-required="true">
+            <option value="">Select soil type</option>
+            <option value="red">Red soil</option>
+            <option value="black">Black soil</option>
+            <option value="alluvial">Alluvial soil</option>
+            <option value="clay">Clay soil</option>
+            <option value="sandy">Sandy soil</option>
+            <option value="loamy">Loamy soil</option>
+            <option value="laterite">Laterite soil</option>
+          </select>
+
+          <label for="season">Growing season <span aria-hidden="true">*</span></label>
+          <select id="season" name="season" required aria-required="true">
+            <option value="">Select season</option>
+            <option value="Kharif">Kharif (monsoon)</option>
+            <option value="Rabi">Rabi (winter)</option>
+            <option value="Summer">Summer</option>
+          </select>
+
+          <label for="rainfall_mm">Expected seasonal rainfall <span aria-hidden="true">*</span></label>
+          <div class="input-with-unit">
+            <input id="rainfall_mm" name="rainfall_mm" type="number" min="0" max="5000" step="1" inputmode="numeric" placeholder="e.g. 750" required aria-required="true" aria-describedby="rainfall-help">
+            <span aria-hidden="true">mm</span>
+          </div>
+          <p class="field-help" id="rainfall-help">Enter estimated rainfall for the crop season, not annual rainfall.</p>
+
+          <label for="water_availability">Water availability <span aria-hidden="true">*</span></label>
+          <select id="water_availability" name="water_availability" required aria-required="true">
+            <option value="">Select water availability</option>
+            <option value="low">Low (limited irrigation)</option>
+            <option value="moderate">Moderate</option>
+            <option value="high">High (reliable irrigation)</option>
+          </select>
+
+          <button class="submit-button" id="submit-button" type="submit"><span>Get crop recommendations</span><span aria-hidden="true">&#8594;</span></button>
+          <p class="privacy-note">Your entries are processed for this result and are not saved to a database.</p>
+        </form>
+      </div>
+
+      <div class="results-panel" id="results" aria-live="polite">
+        <div class="results-empty" id="empty-state">
+          <div class="empty-icon" aria-hidden="true">&#127793;</div>
+          <p class="eyebrow">STEP 02</p>
+          <h2>Your crop matches will appear here</h2>
+          <p>Complete the four fields and select <strong>Get crop recommendations</strong> to view screening suggestions.</p>
+          <div class="mini-stats">
+            <div><strong>04</strong><span>Farm inputs</span></div>
+            <div><strong>08</strong><span>Crop profiles</span></div>
+            <div><strong>05</strong><span>Top matches</span></div>
+          </div>
+        </div>
+        <div id="loading-state" class="loading-state" hidden>
+          <div class="spinner" aria-hidden="true"></div>
+          <p>Checking your farm conditions&hellip;</p>
+        </div>
+        <div id="error-state" class="error-state" role="alert" hidden></div>
+        <div id="recommendation-state" hidden>
+          <div class="section-heading result-heading">
+            <div><p class="eyebrow">STEP 02</p><h2>Recommended crops</h2></div>
+            <span class="result-count" id="result-count"></span>
+          </div>
+          <div id="recommendation-list" class="recommendation-list"></div>
+          <p class="result-notice" id="result-notice"></p>
+          <button class="reset-button" id="reset-button" type="button">&#8635; Change farm details</button>
+        </div>
+      </div>
     </section>
-    <section class="info panel">
-      <h2>How it works</h2>
-      <p>Choose the soil type and growing season, enter expected seasonal rainfall and water availability, then review the ranked crop matches and their reasons.</p>
-      <h3>Important note</h3>
-      <p>This is an educational rule-based prototype. Its score and rainfall bands are illustrative settings, not probabilities, yield forecasts or official agronomic thresholds. Confirm crop choices with your local Krishi Vigyan Kendra or agriculture department.</p>
-      <p>References: <a href="https://www.icar.gov.in/en/node/17269" target="_blank" rel="noopener noreferrer">ICAR Karnataka profile</a> · <a href="https://icar.gov.in/en/icar-kharif-agro-advisories-farmers-2025" target="_blank" rel="noopener noreferrer">ICAR Kharif advisories 2025</a>.</p>
+
+    <section class="how-section">
+      <p class="eyebrow">HOW IT WORKS</p>
+      <h2>Four inputs. A clear recommendation.</h2>
+      <div class="steps">
+        <article><span>01</span><h3>Choose soil</h3><p>Select the soil type found in your field.</p></article>
+        <article><span>02</span><h3>Select season</h3><p>Choose Kharif, Rabi or Summer.</p></article>
+        <article><span>03</span><h3>Add rainfall &amp; water</h3><p>Enter expected seasonal rainfall and available water.</p></article>
+        <article><span>04</span><h3>Review matches</h3><p>Compare rule-based scores and the reasons behind them.</p></article>
+      </div>
+    </section>
+
+    <section class="sources-section">
+      <h2>Reference material</h2>
+      <p>This demonstrator uses crop context from Indian Council of Agricultural Research (ICAR) publications. Soil and water preferences, numerical rainfall bands and 0&ndash;100 rule scores are editable prototype assumptions. Scores are not probabilities, yield forecasts or official crop thresholds.</p>
+      <ul>
+        <li><a href="https://www.icar.gov.in/en/node/17269" target="_blank" rel="noopener noreferrer">ICAR &mdash; Karnataka agriculture and important crops</a></li>
+        <li><a href="https://icar.gov.in/sites/default/files/2025-10/ICAR-En-Kharif-Agro-Advisories-for-Farmers-2025.pdf" target="_blank" rel="noopener noreferrer">ICAR &mdash; Kharif Agro-Advisories for Farmers 2025 (PDF)</a></li>
+      </ul>
     </section>
   </main>
-  <footer>CropWise · Academic project prototype</footer>
+
+  <footer><span>CropWise &middot; Academic project prototype</span><span>Verify final decisions with local agricultural experts.</span></footer>
 </body>
 </html>

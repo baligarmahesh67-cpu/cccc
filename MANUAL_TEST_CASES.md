@@ -1,6 +1,7 @@
 # Manual Test Cases
 
-Use the running app at `http://127.0.0.1:5000`. These examples are functional checks, not agronomic advice.
+Use the running app at `http://127.0.0.1:5000`. These examples are functional
+checks, not agronomic advice.
 
 | Test | Soil | Season | Seasonal rainfall (mm) | Water | Expected behavior |
 |---|---|---:|---:|---|---|
@@ -13,7 +14,19 @@ Use the running app at `http://127.0.0.1:5000`. These examples are functional ch
 | 7 | Red | Not selected | 700 | Low | Browser asks for required season |
 | 8 | Red | Kharif | blank | Low | Browser asks for rainfall |
 | 9 | Red | Kharif | 700 | Not selected | Browser asks for water availability |
+| 10 | Red | Kharif | 700 | Low | Button is disabled while the request is running |
+| 11 | Red | Kharif | 700 | Low | Result cards show score, reasons and source link |
 
-## API check
+## API checks
 
-Send a JSON `POST` request to `/api/recommend` with the four values. A valid request should return HTTP 200. Invalid or missing values should return HTTP 400. `GET /health` should return HTTP 200 with `status: ok`.
+Send a JSON `POST` request to `/api/recommend` with the four values. A valid
+request should return HTTP 200. Invalid or missing values should return HTTP
+400. `GET /health` should return HTTP 200 with `status: ok`.
+
+Also verify:
+
+- `GET /static/css/style.css` returns HTTP 200.
+- `GET /static/js/app.js` returns HTTP 200.
+- `GET /api/unknown` returns a JSON 404.
+- `GET /api/recommend` returns a JSON 405.
+- A request body larger than 16 KB returns a JSON 413.

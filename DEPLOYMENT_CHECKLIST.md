@@ -1,34 +1,52 @@
-# GitHub + Render release checklist
+# GitHub + Render Release Checklist
 
 ## Before GitHub
-- [ ] Run `python -m unittest discover -s tests -v`. The current offline build check reports 13 passing recommender tests and 8 Flask API tests skipped because Flask could not be installed in this workspace; GitHub Actions is configured to install `requirements.txt` and run the full suite.
-- [ ] Run the site locally and test each soil / season / rainfall / water input.
+
+- [ ] Create and activate `.venv`; install `requirements.txt`.
+- [ ] Run `python -m unittest discover -s tests -v` with zero failures and
+      zero unexplained skips.
+- [ ] Run `python -m compileall -q app.py recommender.py crop_data.py tests`.
+- [ ] Run `node --check static/js/app.js` (or report if Node.js is unavailable).
+- [ ] Run the site locally and test valid and invalid form inputs.
 - [ ] Confirm no `.env`, passwords, API tokens or personal data are committed.
-- [ ] Confirm crop thresholds have been reviewed by a local agriculture subject expert before any real-farmer use.
-- [ ] Add team member names / guide / institution details only if required by the assignment.
+- [ ] Confirm crop thresholds have been reviewed by a local agriculture subject
+      expert before any real-farmer use.
+- [ ] Add team member names / guide / institution details only if required by
+      the assignment.
 
 ## GitHub
-- [ ] Create a new repository (public or private as appropriate).
-- [ ] Upload the contents of this folder, not the ZIP file alone.
-- [ ] Confirm `app.py`, `requirements.txt`, `render.yaml`, `templates/`, and `static/` are in the repository root.
+
+- [ ] Confirm the remote is the intended repository and the branch is `main`.
+- [ ] Confirm `app.py`, `requirements.txt`, `render.yaml`, `templates/`,
+      `static/` and `tests/` are in the repository root.
+- [ ] Push without force and confirm the remote SHA matches local `HEAD`.
+- [ ] Confirm the GitHub Actions workflow completes with conclusion `SUCCESS`.
 
 ## Render
-- [ ] Create a Web Service or Blueprint from the GitHub repository.
+
+- [ ] Create or update the **basic-crop-recommendation** web service from the
+      existing repository. Do not create a duplicate service.
 - [ ] Build command: `pip install -r requirements.txt`.
-- [ ] Start command: `gunicorn app:app`.
+- [ ] Start command: `gunicorn app:app --bind 0.0.0.0:$PORT`.
+- [ ] Health check path: `/health`.
+- [ ] Confirm the deployed commit matches the tested GitHub commit.
 - [ ] After deployment, verify `/health` responds with HTTP 200.
-- [ ] Test the complete recommendation form on the public URL, including invalid values.
-- [ ] Keep the repository connected for later automatic deploys from the selected branch.
+- [ ] Test the complete recommendation form on the public URL, including
+      invalid values.
+- [ ] Keep the repository connected for later automatic deploys from `main`.
 
 ## Current verification status
-- [x] Python source compilation
-- [x] JavaScript syntax check
-- [x] Recommendation tests (13 passed)
-- [ ] Flask API tests (8 skipped locally; run in GitHub Actions)
-- [ ] Application runtime test
-- [ ] Automated unit/API tests
-- [ ] Real-user / mobile-browser test
+
+Update only after the check has actually been performed:
+
+- [ ] Python source compilation
+- [ ] JavaScript syntax check
+- [ ] Recommendation unit tests
+- [ ] Flask API tests
+- [ ] Local application runtime test
+- [ ] GitHub Actions workflow
 - [ ] Live Render deployment test
+- [ ] Mobile / responsive browser test
 - [ ] Agricultural expert review
 
-Do not mark the last four checks complete until they have actually been performed.
+Do not mark a check complete until it has actually been performed.

@@ -14,7 +14,7 @@ CROP_PROFILES = [
         "water": ["high"],
         "description": "A candidate for suitable fields with reliable water availability.",
         "evidence": "ICAR's Karnataka advisory describes paddy sowing mainly from June to August and notes that much of the state's paddy area is irrigated.",
-        "source": "https://icar.gov.in/en/icar-kharif-agro-advisories-farmers-2025",
+        "source": "https://icar.gov.in/sites/default/files/2025-10/ICAR-En-Kharif-Agro-Advisories-for-Farmers-2025.pdf",
     },
     {
         "name": "Finger Millet (Ragi)",
@@ -24,7 +24,7 @@ CROP_PROFILES = [
         "water": ["low", "moderate"],
         "description": "A rainfed millet candidate commonly grown in Karnataka.",
         "evidence": "ICAR's Karnataka advisory lists June-July sowing and rainfed cultivation for finger millet.",
-        "source": "https://icar.gov.in/en/icar-kharif-agro-advisories-farmers-2025",
+        "source": "https://icar.gov.in/sites/default/files/2025-10/ICAR-En-Kharif-Agro-Advisories-for-Farmers-2025.pdf",
     },
     {
         "name": "Maize",
@@ -34,7 +34,7 @@ CROP_PROFILES = [
         "water": ["moderate", "high"],
         "description": "A versatile cereal candidate; irrigation needs vary with soil and season.",
         "evidence": "ICAR's Karnataka advisory describes Kharif sowing around May-July and Rabi sowing around September-October, with irrigation intervals differing by soil.",
-        "source": "https://icar.gov.in/en/icar-kharif-agro-advisories-farmers-2025",
+        "source": "https://icar.gov.in/sites/default/files/2025-10/ICAR-En-Kharif-Agro-Advisories-for-Farmers-2025.pdf",
     },
     {
         "name": "Pigeonpea (Red Gram / Tur)",
@@ -54,7 +54,7 @@ CROP_PROFILES = [
         "water": ["low", "moderate"],
         "description": "An oilseed candidate; sow only when adequate moisture is available.",
         "evidence": "ICAR's Karnataka advisory mentions groundnut in red-soil moisture-conservation systems and cautions against dry sowing without sufficient root-zone moisture.",
-        "source": "https://icar.gov.in/en/icar-kharif-agro-advisories-farmers-2025",
+        "source": "https://icar.gov.in/sites/default/files/2025-10/ICAR-En-Kharif-Agro-Advisories-for-Farmers-2025.pdf",
     },
     {
         "name": "Sorghum (Jowar)",
