@@ -32,6 +32,7 @@ class ApiTests(unittest.TestCase):
         self.assertIn("/static/js/app.js", body)
         self.assertIn("/static/favicon.svg", body)
         self.assertIn("not probabilities", body)
+        self.assertNotIn("\ufffd", body)
 
     def test_health(self):
         response = self.client.get("/health")
@@ -49,6 +50,18 @@ class ApiTests(unittest.TestCase):
             self.assertEqual(response.mimetype, "text/css")
             self.assertIn(b":root", response.data)
             self.assertIn(b"@media", response.data)
+        finally:
+            response.close()
+
+    def test_css_matches_the_template_layout(self):
+        response = self.client.get("/static/css/style.css")
+        try:
+            self.assertEqual(response.status_code, 200)
+            css = response.get_data(as_text=True)
+            for selector in (".form-panel", ".results-panel", ".workspace", ".hero-art"):
+                self.assertIn(selector, css)
+            self.assertIn("@media(max-width:850px)", css)
+            self.assertIn("@media(max-width:520px)", css)
         finally:
             response.close()
 
