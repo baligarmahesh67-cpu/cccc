@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Educational crop recommendation using soil, season, rainfall and water availability.">
+  <title>CropWise | Basic Crop Recommendation</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="/">🌱 CropWise</a><span>BASIC CROP RECOMMENDATION SYSTEM</span></header>
+  <main>
+    <section class="hero">
+      <p class="eyebrow">SMARTER CROP PLANNING</p>
+      <h1>Find crops that fit <span>your field.</span></h1>
+      <p>Enter four farm conditions to see a ranked, explainable shortlist of crop options.</p>
+    </section>
+    <section class="workspace">
+      <form id="recommend-form" class="panel">
+        <p class="eyebrow">STEP 01</p><h2>Tell us about your farm</h2>
+        <label for="soil_type">Soil type</label>
+        <select id="soil_type" name="soil_type" required>
+          <option value="">Select soil type</option><option value="red">Red soil</option><option value="black">Black soil</option>
+          <option value="alluvial">Alluvial soil</option><option value="clay">Clay soil</option><option value="sandy">Sandy soil</option>
+          <option value="loamy">Loamy soil</option><option value="laterite">Laterite soil</option>
+        </select>
+        <label for="season">Growing season</label>
+        <select id="season" name="season" required>
+          <option value="">Select season</option><option value="Kharif">Kharif (monsoon)</option><option value="Rabi">Rabi (winter)</option><option value="Summer">Summer</option>
+        </select>
+        <label for="rainfall_mm">Expected seasonal rainfall (mm)</label>
+        <input id="rainfall_mm" name="rainfall_mm" type="number" min="0" max="5000" step="1" placeholder="e.g. 750" required>
+        <small>Enter estimated rainfall for this crop season, not annual rainfall.</small>
+        <label for="water_availability">Water availability</label>
+        <select id="water_availability" name="water_availability" required>
+          <option value="">Select water availability</option><option value="low">Low (limited irrigation)</option><option value="moderate">Moderate</option><option value="high">High (reliable irrigation)</option>
+        </select>
+        <button id="submit-button" type="submit">Get crop recommendations →</button>
+        <p class="hint">Your entries are processed for this result and are not saved to a database.</p>
+      </form>
+      <section class="panel results" aria-live="polite">
+        <p class="eyebrow">STEP 02</p><h2>Crop recommendations</h2>
+        <p id="status">Complete the four fields and submit to see suggestions.</p>
+        <div id="recommendation-list"></div>
+        <p id="result-notice" class="notice"></p>
+      </section>
+    </section>
+    <section class="info panel">
+      <h2>How it works</h2>
+      <p>Choose the soil type and growing season, enter expected seasonal rainfall and water availability, then review the ranked crop matches and their reasons.</p>
+      <h3>Important note</h3>
+      <p>This is an educational rule-based prototype. Its score and rainfall bands are illustrative settings, not probabilities, yield forecasts or official agronomic thresholds. Confirm crop choices with your local Krishi Vigyan Kendra or agriculture department.</p>
+      <p>References: <a href="https://www.icar.gov.in/en/node/17269" target="_blank" rel="noopener noreferrer">ICAR Karnataka profile</a> · <a href="https://icar.gov.in/en/icar-kharif-agro-advisories-farmers-2025" target="_blank" rel="noopener noreferrer">ICAR Kharif advisories 2025</a>.</p>
+    </section>
+  </main>
+  <footer>CropWise · Academic project prototype</footer>
+</body>
+</html>
